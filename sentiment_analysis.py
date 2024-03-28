@@ -59,7 +59,7 @@ cleaned_reviews.loc[:,"reviews.text.cleaned"] = cleaned_reviews["reviews.text"].
 
 # vectorise review text column
 vectorizer = TfidfVectorizer(ngram_range=(1,2))
-vectorized_reviews = vectorizer.fit_transform(cleaned_reviews["reviews.text.cleaned"])
+X = vectorizer.fit_transform(cleaned_reviews["reviews.text.cleaned"])
 
 # Creating sentiment score for each review
 cleaned_reviews.loc[:,"reviews.sentiment.score"] = list(TextBlob(review).sentiment.polarity
@@ -69,7 +69,7 @@ y = cleaned_reviews["reviews.sentiment.score"]
 
 # Training model
 
-X_train, X_test, y_train, y_test = train_test_split(vectorized_reviews, y,
+X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                      test_size=0.2, random_state=10)
 
 model = LinearRegression()
