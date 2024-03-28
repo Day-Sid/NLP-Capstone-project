@@ -47,7 +47,8 @@ def sentiment_analysis(review):
     return f"The predicted sentiment for this review is: {str(catagorised_rating)}."
 
 # Reading the .csv. Please change the pathway to the appropriate directory if required
-reviews = pd.read_csv("C:/Users/sidne/OneDrive/Documents/0 school work/Cogrammar_Course/T21 - Capstone Project - NLP Applications/abridged_amazon_product_reviews.csv")
+reviews = pd.read_csv("C:/Users/sidne/OneDrive/Documents/0 school work/Cogrammar_Course/" \
+                    "T21 - Capstone Project - NLP Applications/abridged_amazon_product_reviews.csv")
 
 # Remove all N/A values in the reviews'text column
 reviews.dropna(subset = "reviews.text", inplace = True)
@@ -62,8 +63,9 @@ vectorizer = TfidfVectorizer(ngram_range=(1,2))
 X = vectorizer.fit_transform(cleaned_reviews["reviews.text.cleaned"])
 
 # Creating sentiment score for each review
-cleaned_reviews.loc[:,"reviews.sentiment.score"] = list(TextBlob(review).sentiment.polarity
-                                                for review in cleaned_reviews["reviews.text.cleaned"])
+cleaned_reviews.loc[:,"reviews.sentiment.score"] = list(
+    TextBlob(review).sentiment.polarity for review in cleaned_reviews["reviews.text.cleaned"]
+    )
 
 y = cleaned_reviews["reviews.sentiment.score"]
 
